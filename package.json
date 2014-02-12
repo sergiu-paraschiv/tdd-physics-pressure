@@ -1,0 +1,15 @@
+{
+  "name": "tdd-physics-pressure",
+  "title": "Experimentally defines pressure and temperature of gases at an atomic level.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Sergiu Paraschiv"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "engines": {
+    "node": "~>0.10.5",
+    "npm": "~>1.2.18"
+  }
+}
