@@ -5,8 +5,16 @@
   "author": {
     "name": "Sergiu Paraschiv"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sergiu-paraschiv/tdd-physics-pressure.git"
+  },
   "devDependencies": {
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-jasmine": "~0.6.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "bower": "~1.2.8"
   },
   "engines": {
     "node": "~>0.10.5",

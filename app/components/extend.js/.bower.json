@@ -1,0 +1,15 @@
+{
+  "name": "extend.js",
+  "_cacheHeaders": {
+    "ETag": "\"959a93e9927b29d5a1cec4461b9c0668\"",
+    "Last-Modified": "Thu, 12 Sep 2013 22:37:40 GMT",
+    "Content-Length": "1378",
+    "Content-Type": "application/octet-stream",
+    "Content-Disposition": "attachment; filename=extend.js"
+  },
+  "_release": "e-tag:959a93e99",
+  "main": "index.js",
+  "_source": "https://github.com/searls/extend.js/releases/download/0.1.0/extend.js",
+  "_target": "*",
+  "_originalSource": "https://github.com/searls/extend.js/releases/download/0.1.0/extend.js"
+}
