@@ -9,7 +9,8 @@ module.exports = function(grunt) {
                     'app/components/lodash/dist/lodash.js',
                     'app/components/extend.js/index.js',
                     'app/components/vec2d/build/vec2d.js',
-                    'app/scripts/**/*.js'
+                    'app/scripts/**/*.js',
+                    '!app/scripts/Main.js'
                 ],
                 options: {
                     specs: 'spec/*Spec.js'
