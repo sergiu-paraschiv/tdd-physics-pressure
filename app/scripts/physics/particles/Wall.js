@@ -5,10 +5,10 @@
     var Point = tsp.math.vectors.Point;
     var Particle = tsp.physics.particles.Particle;
     
-    function Wall(vector, length, isHorizontal) {
+    function Wall(position, pressure, length, isHorizontal) {
         var self = this;
         
-        this.vector = vector;
+        this.vector = new Vector(position, new Point(0, pressure));
         this.length = length;
         this.isHorizontal = isHorizontal;
         

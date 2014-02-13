@@ -23,9 +23,7 @@
             var s = new Space();
             
             var position = new Point(0, 0);
-            var movement = new Point(1, 1);
-            var vector = new Vector(position, movement);
-            var w = new Wall(vector, 10);
+            var w = new Wall(position, 1, 10);
             
             s.add(w);
 
@@ -92,9 +90,7 @@
             var s = new Space();
             
             var position = new Point(50, 50);
-            var movement = new Point(0, 10);
-            var vector = new Vector(position, movement);
-            var wall = new Wall(vector, 10);
+            var wall = new Wall(position, 10, 10);
             
             s.add(wall);
             
@@ -105,16 +101,12 @@
             var s = new Space();
             
             var position = new Point(50, 50);
-            var movement = new Point(0, 0);
-            var vector = new Vector(position, movement);
-            var wall = new Wall(vector, 11, true);
+            var wall = new Wall(position, 0, 11, true);
             
             s.add(wall);
             
-            var pos;
             for(var i = 0; i < 11; i++) {
-                pos = vector.position.getX();
-                expect(wall.get(i).vector.position.getX()).toBe(pos + i - 5);
+                expect(wall.get(i).vector.position.getX()).toBe(position.getX() + i - 5);
             }
         });
         
@@ -122,16 +114,12 @@
             var s = new Space();
             
             var position = new Point(50, 50);
-            var movement = new Point(0, 0);
-            var vector = new Vector(position, movement);
-            var wall = new Wall(vector, 11, false);
+            var wall = new Wall(position, 0, 11, false);
             
             s.add(wall);
             
-            var pos;
             for(var i = 0; i < 11; i++) {
-                pos = vector.position.getY();
-                expect(wall.get(i).vector.position.getY()).toBe(pos + i - 5);
+                expect(wall.get(i).vector.position.getY()).toBe(position.getY() + i - 5);
             }
         });
     });

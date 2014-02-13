@@ -21,7 +21,7 @@
             space = new Space();
             
             particle = new Particle(new Vector(new Point(10, 10), new Point(10, 10)));
-            wall = new Wall(new Vector(new Point(200, 50), new Point(0, 10)), 101, true);
+            wall = new Wall(new Point(200, 50), 10, 101, true);
             
             space.add(particle);
             space.add(wall);
@@ -55,23 +55,25 @@
             }));
             
             canvas.add(new Circle( {
-                    stroke: color,
-                    strokeWidth: 1,
-                    radius: 3,
-                    left: vector.position.getX() + vector.movement.getX() - 2,
-                    top: vector.position.getY() + vector.movement.getY() - 2
+                stroke: color,
+                strokeWidth: 1,
+                radius: 3,
+                left: vector.position.getX() + vector.movement.getX() - 2,
+                top: vector.position.getY() + vector.movement.getY() - 2
             }));
         }
         
         function addWall(wall) {
             addParticle(wall.get((wall.size() - 1) / 2), '#ff0000');
+
+            var dimension = [0, 0, 0, 0];
             
-            var dimension = [
-                0,
-                0,
-                wall.size(),
-                0
-            ];
+            if(wall.isHorizontal) {
+                dimension[2] = wall.size();
+            }
+            else {
+                dimension[3] = wall.size();
+            }
             
             canvas.add(new Line(dimension, {
                 stroke: '#ff0000',
