@@ -10,38 +10,34 @@
         
         this.vector = vector;
         this.length = length;
+        this.isHorizontal = isHorizontal;
         
-        this.particles = [];
-        
-        function initialize() {
-            var particleVector, particlePosition, particleMovement;
-            var offsetX, offsetY;
+        this.get = function(i) {
+            var offsetX = 0;
+            var offsetY = 0;
             
-            for(var i = 0; i < length; i++) {
-            
-                offsetX = 0;
-                offsetY = 0;
-                
-                if(isHorizontal) {
-                    offsetX = i - (length - 1) / 2;
-                }
-                else {
-                    offsetY = i - (length - 1) / 2;
-                }
-            
-                particlePosition = new Point(self.vector.position.getX() + offsetX, self.vector.position.getY() + offsetY);
-                particleMovement= new Point(self.vector.movement.getX() + offsetX, self.vector.movement.getY() + offsetY);
-                particleVector = new Vector(particlePosition, particleMovement);
-                
-                self.particles.push(new Particle(particleVector));
+            if(self.isHorizontal) {
+                offsetX = i - (self.length - 1) / 2;
             }
-        }
-        
-        this.step = function() {
+            else {
+                offsetY = i - (self.length - 1) / 2;
+            }
             
+            var particlePosition = new Point(self.vector.position.getX() + offsetX, self.vector.position.getY() + offsetY);
+            var particleMovement = new Point(self.vector.movement.getX(), self.vector.movement.getY());
+            var particleVector = new Vector(particlePosition, particleMovement);
+            
+            return new Particle(particleVector);
         };
         
-        initialize.call(this);
+        this.size = function() {
+            return this.length;
+        };
+        
+        this.step = function() {
+            this.vector.position.add(this.vector.movement);
+        };
+        
     }
     
     this.extend('tsp.physics.particles.Wall', Wall);

@@ -4,16 +4,24 @@
     function Space() {
         var self = this;
         
-        this.particles = [];
+        this.objects = [];
         
         function takeOneStep() {
-            for(var i in self.particles) {
-                self.particles[i].step();
+            for(var i in self.objects) {
+                self.objects[i].step();
             }
         }
         
-        this.add = function(particle) {
-            this.particles.push(particle);
+        this.add = function(object) {
+            this.objects.push(object);
+        };
+        
+        this.get = function(i) {
+            return this.objects[i];
+        };
+        
+        this.size = function() {
+            return this.objects.length;
         };
         
         this.step = function(time) {

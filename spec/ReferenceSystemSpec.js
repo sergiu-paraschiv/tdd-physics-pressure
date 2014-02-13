@@ -16,17 +16,21 @@
             
             s.add(p);
 
-            expect(s.particles.length).toBe(1);
+            expect(s.size()).toBe(1);
         });
         
-        it('contains a Wall', function() {
+        it('contains a Wall with 10 Particles for length 10', function() {
             var s = new Space();
             
-            var w = new Wall();
+            var position = new Point(0, 0);
+            var movement = new Point(1, 1);
+            var vector = new Vector(position, movement);
+            var w = new Wall(vector, 10);
             
             s.add(w);
 
-            expect(s.particles.length).toBe(1);
+            expect(s.size()).toBe(1);
+            expect(s.get(0).size()).toBe(10);
         });
     });
     
@@ -94,7 +98,7 @@
             
             s.add(wall);
             
-            expect(wall.particles.length).toBe(10);
+            expect(wall.size()).toBe(10);
         });
         
         it('horizontally distributes 11 Particles accros the whole length of 11', function() {
@@ -110,7 +114,7 @@
             var pos;
             for(var i = 0; i < 11; i++) {
                 pos = vector.position.getX();
-                expect(wall.particles[i].vector.position.getX()).toBe(pos + i - 5);
+                expect(wall.get(i).vector.position.getX()).toBe(pos + i - 5);
             }
         });
         
@@ -127,7 +131,7 @@
             var pos;
             for(var i = 0; i < 11; i++) {
                 pos = vector.position.getY();
-                expect(wall.particles[i].vector.position.getY()).toBe(pos + i - 5);
+                expect(wall.get(i).vector.position.getY()).toBe(pos + i - 5);
             }
         });
     });
