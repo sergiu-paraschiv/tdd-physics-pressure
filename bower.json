@@ -3,7 +3,6 @@
   "dependencies": {
     "lodash": "~2.4.1",
     "extend.js": "https://github.com/searls/extend.js/releases/download/0.1.0/extend.js",
-    "vec2d": "~1.1.0",
     "fabric": "~1.4.0"
   }
 }

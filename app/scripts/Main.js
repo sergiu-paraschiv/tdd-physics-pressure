@@ -6,6 +6,7 @@
     var Particle = tsp.physics.particles.Particle;
     var Wall = tsp.physics.particles.Wall;
     var Space = tsp.physics.particles.Space;
+    var ReactiveSpace = tsp.physics.particles.ReactiveSpace;
     
     var Canvas = fabric.StaticCanvas;
     var Line = fabric.Line;
@@ -14,25 +15,39 @@
     function Main() {
         var space;
         var canvas;
-        var particle;
-        var wall;
+        var particle1;
+        var particle2;
+        var wall1, wall2, wall3, wall4;
+        
+        function randomBetween(min, max) {
+            return min + Math.random() * max;
+        }
         
         function initialize() {
-            space = new Space();
+            space = new ReactiveSpace(new Space());
             
-            particle = new Particle(new Vector(new Point(10, 10), new Point(10, 10)));
-            wall = new Wall(new Point(200, 50), 10, 101, true);
+            for(var i = 0; i < 100; i++) {
+                particle1 = new Particle(new Vector(new Point(randomBetween(13, 14), randomBetween(13, 14)), new Point(randomBetween(-0.1, 0.1), randomBetween(-0.1, 0.1))));
+                space.add(particle1);
+            }
+
+            wall1 = new Wall(new Point(8, 20), 0.01, 24, false);
+            wall2 = new Wall(new Point(32, 20), -0.01, 24, false);
+            wall3 = new Wall(new Point(20, 8), 0.01, 24, true);
+            wall4 = new Wall(new Point(20, 32), -0.01, 24, true);
             
-            space.add(particle);
-            space.add(wall);
+            space.add(wall1);
+            space.add(wall2);
+            space.add(wall3);
+            space.add(wall4);
             
             canvas = new Canvas('canvas', {
                 backgroundColor: '#000',
                 renderOnAddition: false
             });
             
-            fabric.Object.prototype.originX = 'left';
-            fabric.Object.prototype.originY = 'top';
+            fabric.Object.prototype.originX = 'center';
+            fabric.Object.prototype.originY = 'center';
         }
         
         function addParticle(particle, color) {
@@ -41,45 +56,48 @@
             color = color || '#fff';
             
             var dimension = [
-                0,
-                0,
-                vector.movement.getX(),
-                vector.movement.getY()
+                vector.position.getX(),
+                vector.position.getY(),
+                vector.position.getX() + vector.movement.getX(),
+                vector.position.getY() + vector.movement.getY()
             ];
             
             canvas.add(new Line(dimension, {
                 stroke: color,
-                strokeWidth: 1,
-                left: vector.position.getX(),
-                top: vector.position.getY()
+                strokeWidth: 1
             }));
             
             canvas.add(new Circle( {
                 stroke: color,
                 strokeWidth: 1,
-                radius: 3,
-                left: vector.position.getX() + vector.movement.getX() - 2,
-                top: vector.position.getY() + vector.movement.getY() - 2
+                radius: particle.radius,
+                left: vector.position.getX(),
+                top: vector.position.getY()
             }));
         }
         
         function addWall(wall) {
             addParticle(wall.get((wall.size() - 1) / 2), '#ff0000');
 
-            var dimension = [0, 0, 0, 0];
+            var dimension = [
+                wall.vector.position.getX(),
+                wall.vector.position.getY(),
+                wall.vector.position.getX(),
+                wall.vector.position.getY()
+            ];
             
             if(wall.isHorizontal) {
-                dimension[2] = wall.size();
+                dimension[0] -= wall.length / 2;
+                dimension[2] += wall.length / 2;
             }
             else {
-                dimension[3] = wall.size();
+                dimension[1] -= wall.length / 2;
+                dimension[3] += wall.length / 2;
             }
             
             canvas.add(new Line(dimension, {
                 stroke: '#ff0000',
-                strokeWidth: 1,
-                left: wall.get(0).vector.position.getX(),
-                top: wall.get(0).vector.position.getY()
+                strokeWidth: 1
             }));
         }
         
@@ -87,12 +105,12 @@
             canvas.clear();
             
             var elements;
-            for(var i = 0; i < space.objects.length; i++) {
-                if(space.objects[i] instanceof Particle) {
-                    addParticle(space.objects[i]);
+            for(var i = 0; i < space.size(); i++) {
+                if(space.get(i) instanceof Particle) {
+                    addParticle(space.get(i));
                 }
-                else if(space.objects[i] instanceof Wall) {
-                    addWall(space.objects[i]);
+                else if(space.get(i) instanceof Wall) {
+                    addWall(space.get(i));
                 }
             }
             
@@ -102,8 +120,8 @@
         function run() {
             initialize();
             
-            space.step(4);
-            
+            space.step(100);
+
             redraw();
         }
         

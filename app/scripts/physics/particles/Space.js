@@ -7,21 +7,21 @@
         this.objects = [];
         
         function takeOneStep() {
-            for(var i in self.objects) {
+            for(var i = 0; i < self.objects.length; i++) {
                 self.objects[i].step();
             }
         }
         
         this.add = function(object) {
-            this.objects.push(object);
+            self.objects.push(object);
         };
         
         this.get = function(i) {
-            return this.objects[i];
+            return self.objects[i];
         };
         
         this.size = function() {
-            return this.objects.length;
+            return self.objects.length;
         };
         
         this.step = function(time) {
